@@ -1,6 +1,7 @@
 component output="false" {
 
   // TODO: mixin arg..
+	// TODO: wheels version (2.x)
 
 	include "/wheels/public/docs/functions.cfm";
 	include "/wheels/view/sanitize.cfm";
@@ -51,12 +52,12 @@ component output="false" {
 			local.struct[func.name] = {
 				"prefix"=func.name,
 				"description"=stripTags(Trim(func.hint)),
-				"body"=["#func.name#(#_buildArguments(func=local.func, includeOptional=false, editor="vscode")#);"]
+				"body"=["#func.name#(#_buildArguments(func=local.func, includeOptional=false, editor="vscode")#)"]
 			};
 			local.struct[func.name & "-long"] = {
 				"prefix"=func.name & " long",
 				"description"=stripTags(Trim(func.hint)),
-				"body"=["#func.name#(#_buildArguments(func=local.func, includeOptional=true, editor="vscode")#);"]
+				"body"=["#func.name#(#_buildArguments(func=local.func, includeOptional=true, editor="vscode")#)"]
 			};
 		}
 
@@ -80,7 +81,7 @@ component output="false" {
 
 		for (local.func in arguments.funcs) {
 			local.content = '<snippet>' & local.lf;
-			local.content &= '  <content><![CDATA[#func.name#(#_buildArguments(func=local.func, includeOptional=false, editor="sublime")#);]]></content>' & local.lf;
+			local.content &= '  <content><![CDATA[#func.name#(#_buildArguments(func=local.func, includeOptional=false, editor="sublime")#)]]></content>' & local.lf;
 			local.content &= '  <tabTrigger>#func.name#</tabTrigger>' & local.lf;
 			local.content &= '  <!-- <scope>source.cfml</scope> -->' & local.lf;
 			local.content &= '  <description>#XmlFormat(stripTags(Trim(func.hint)))#</description>' & local.lf;
@@ -90,7 +91,7 @@ component output="false" {
 			FileWrite(local.snippetFilePath, local.content);
 
 			local.content = '<snippet>' & local.lf;
-			local.content &= '  <content><![CDATA[#func.name#(#_buildArguments(func=local.func, includeOptional=true, editor="sublime")#);]]></content>' & local.lf;
+			local.content &= '  <content><![CDATA[#func.name#(#_buildArguments(func=local.func, includeOptional=true, editor="sublime")#)]]></content>' & local.lf;
 			local.content &= '  <tabTrigger>#func.name# long</tabTrigger>' & local.lf;
 			local.content &= '  <!-- <scope>source.cfml</scope> -->' & local.lf;
 			local.content &= '  <description>#XmlFormat(stripTags(Trim(func.hint)))#</description>' & local.lf;
@@ -118,11 +119,11 @@ component output="false" {
 		for (local.func in arguments.funcs) {
 			local.content &= "  '#func.name#':" & local.lf;
 			local.content &= "    'prefix': '#func.name#'" & local.lf;
-			local.content &= "    'body': " & '"#func.name#(#_buildArguments(func=local.func, includeOptional=false, editor="atom")#);"' & local.lf;
+			local.content &= "    'body': " & '"#func.name#(#_buildArguments(func=local.func, includeOptional=false, editor="atom")#)"' & local.lf;
 
 			// local.content &= "  '#func.name# long':" & local.lf;
 			// local.content &= "    'prefix': '#func.name# long'" & local.lf;
-			// local.content &= "    'body': " & '"#func.name#(#_buildArguments(func=local.func, includeOptional=true, editor="atom")#);"' & local.lf;
+			// local.content &= "    'body': " & '"#func.name#(#_buildArguments(func=local.func, includeOptional=true, editor="atom")#)"' & local.lf;
 		}
 
 		FileWrite(local.path, local.content);
