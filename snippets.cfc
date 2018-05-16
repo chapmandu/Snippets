@@ -5,6 +5,8 @@ component output="false" {
 
 	include "/wheels/public/docs/functions.cfm";
 	include "/wheels/view/sanitize.cfm";
+	include "/wheels/global/internal.cfm";
+	include "/wheels/global/util.cfm";
 
   public any function init() {
     this.version = "2.x";
@@ -179,7 +181,7 @@ component output="false" {
 		});
 		arrayAppend(local.documentScope, {
 				"name": "migrator",
-				"scope": application.wheels.dbmigrate
+				"scope": application.wheels.migrator
 		});
 
 		// Array of functions to ignore
